@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Donde | Aplicación de ejemplo</title>
+  <meta charset="utf-8">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="//cdn.jsdelivr.net/gmaps/0.4.15/gmaps.js"></script></script>
+  <script src="../js/donde.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../css/donde.css">
+
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.min.css">
+
+</head>
+<body>
+
+<div class="row">
+  <div class="large-10 columns">
+    <h1><strong>Donde</strong> | Aplicación de ejemplo</h1>
+  </div>
+  <div class="large-2 columns">
+    <a href="index.html">English</a> | Español
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-3 columns">
+    <h3>Quiero Donar</h3>
+    <div id="category-list" category="donations" class="side-nav"></div>
+  </div>
+
+  <div class="large-9 columns">
+    <div id="map"></div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+Donde.Settings.BackendURL = {
+  Places: 'places.es.json',
+  Categories: 'categories.es',
+  Relations: 'relations'
+};
+Donde.Settings.BackendType = 'static';
+Donde.Settings.Map.lat = -33.9448217;
+Donde.Settings.Map.lng = 18.5178671;
+Donde.Settings.Map.zoom = 12;
+Donde.Settings.MarkersPath = "../images";
+
+Donde.markerClick = function(marker) {
+  var place = Donde.Instances.PlaceCollections.get(marker.id).toJSON();
+  alert('Seleccionó el: ' + place.title);
+}
+
+Donde.appStarted = function() {
+  Donde.Instances.CategoryCollection.each(function(c){
+    var category = c.toJSON();
+    $("#category-" + category.id).parent().find("label").css({'border-bottom': category.color + " solid 4px"});
+  });
+}
+
+Donde.start();
+
+</script>
+
+</body>
+</html>
