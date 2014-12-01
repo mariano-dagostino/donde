@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Donde | Example</title>
+  <title>Donde | Aplicación de ejemplo</title>
   <meta charset="utf-8">
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
@@ -21,16 +21,16 @@
 
 <div class="row">
   <div class="large-10 columns">
-    <h1><strong>Donde</strong> | Example App</h1>
+    <h1><strong>Donde</strong> | Aplicación de ejemplo</h1>
   </div>
   <div class="large-2 columns">
-    English | <a href="index.es.html">Español</a>
+    <a href="index.html">English</a> | Español
   </div>
 </div>
 
 <div class="row">
   <div class="large-3 columns">
-    <h3>I want to donate</h3>
+    <h3>Quiero Donar</h3>
     <div id="category-list" category="donations" class="side-nav"></div>
   </div>
 
@@ -42,23 +42,19 @@
 
 <script type="text/javascript">
 Donde.Settings.BackendURL = {
-  Places: 'places.json',
-  Categories: 'categories',
+  Places: 'places.es.json',
+  Categories: 'categories.es',
   Relations: 'relations'
 };
 Donde.Settings.BackendType = 'static';
-
 Donde.Settings.Map.lat = -33.9448217;
 Donde.Settings.Map.lng = 18.5178671;
 Donde.Settings.Map.zoom = 12;
 Donde.Settings.MarkersPath = "images";
-Donde.Settings.Map.click = function(e) {
-  console.log("\n\nlat:" + e.latLng.B + ",\n lng:" + e.latLng.k);
-}
 
 Donde.markerClick = function(marker) {
   var place = Donde.Instances.PlaceCollections.get(marker.id).toJSON();
-  alert('You clicked on: ' + place.title);
+  alert('Seleccionó el: ' + place.title);
 }
 
 Donde.appStarted = function() {
