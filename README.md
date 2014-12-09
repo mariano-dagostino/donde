@@ -21,6 +21,8 @@ that term will be displayed in the map.
 
 You can see an example here: http://mariano-dagostino.github.io/donde/
 
+The source code of this example can be found on the [gh-branch](https://github.com/mariano-dagostino/donde/tree/gh-pages)
+
 ## License
 
-MIT
+[MIT](https://github.com/mariano-dagostino/donde/blob/master/LICENSE)
