@@ -19,7 +19,7 @@ that term will be displayed in the map.
 
 ## Example
 
-You can see an example here: Live Example
+You can see an example here: http://mariano-dagostino.github.io/donde/
 
 ## License
 
