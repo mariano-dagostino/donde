@@ -17,10 +17,9 @@ window.Donde = {
     BackendType: 'dynamic', // Allowed types: 'dynamic', 'static'.
     MarkersPath: 'images',
     Map: {
+      center: new google.maps.LatLng(-32.953843, -60.661197),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
       el: '#map',
-      lat: -32.953843,
-      lng: -60.661197,
-      zoom: 12,
       zoomControl : true,
       zoomControlOpt: {
         style : 'SMALL',
@@ -94,12 +93,12 @@ Donde.Views.Category = Backbone.View.extend({
         for (var i = 0; i < relations.places.length; i++) {
           var place = Donde.Instances.PlaceCollections.get(relations.places[i]).toJSON();
           var point = {
-            "lat": place.lat,
-            "lng": place.lng,
-            "title": place.name,
-            "icon": Donde.Settings.MarkersPath + '/' + Donde.Instances.CategoryCollection.get(category_id).toJSON().color.replace('#', '') + '.png',
-            "id": place.id,
-            "click": Donde.markerClick,
+            position: new google.maps.LatLng(place.lat, place.lng),
+            map: Donde.Instances.map,
+            title: place.name,
+            icon: Donde.Settings.MarkersPath + '/' + Donde.Instances.CategoryCollection.get(category_id).toJSON().color.replace('#', '') + '.png',
+            id: place.id,
+            click: Donde.markerClick,
           };
           Donde.Instances.markers[category_id][i] = point;
         }
@@ -109,12 +108,12 @@ Donde.Views.Category = Backbone.View.extend({
     if ($(e.target).is(":checked")) {
       Donde.Instances.rendered_markers[category_id] = [];
       for (var i = 0; i < Donde.Instances.markers[category_id].length; i++) {
-        Donde.Instances.rendered_markers[category_id][i] = Donde.Instances.map.addMarker(Donde.Instances.markers[category_id][i]);
+        Donde.Instances.rendered_markers[category_id][i] = new google.maps.Marker(Donde.Instances.markers[category_id][i]);
       };
     }
     else {
       for (var i = 0; i < Donde.Instances.rendered_markers[category_id].length; i++) {
-        Donde.Instances.map.removeMarker(Donde.Instances.rendered_markers[category_id][i]);
+        Donde.Instances.rendered_markers[category_id][i].setMap(null);
       };
     }
   },
@@ -174,7 +173,7 @@ Donde.Views.Map = Backbone.View.extend({
   id: "map",
 
   render: function() {
-    Donde.Instances.map = new GMaps(Donde.Settings.Map);
+    Donde.Instances.map = new google.maps.Map($(Donde.Settings.Map.el).get(0), Donde.Settings.Map);
 
     return Donde.Instances.map;
   }
